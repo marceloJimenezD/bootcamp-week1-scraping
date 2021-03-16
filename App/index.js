@@ -1,5 +1,4 @@
 let btnscrap = document.getElementById('scrap-profile')
-
 let data = [];
 
 btnscrap.addEventListener('click', async ()=>{
@@ -36,7 +35,7 @@ const scrapingProfile = ()=>{
         }
         
 
-        
+
         const elementExperience = document.querySelectorAll("#experience-section ul.pv-profile-section__section-info > li section");
         const experience = elementExperience? Array.from(elementExperience).map((section)=>{
             return section.querySelectorAll('ul').length
@@ -53,9 +52,9 @@ const scrapingProfile = ()=>{
         const education = elementEducation? Array.from(elementEducation).map((li)=>{
             return {
                 centroDeEstudios: li.children[0].children[0]? li.children[0].children[0].innerText:'',
-                grado: li.children[0].children[1]? li.children[0].children[1].innerText:'',
-                especialidad: li.children[0].children[2]? li.children[0].children[2].innerText:'',
-                periodo:li.children[1]? li.children[1].innerText:'',
+                grado: li.children[0].children[1]? li.children[0].children[1].children[1].innerText:'',
+                especialidad: li.children[0].children[2]? li.children[0].children[2].children[1].innerText:'',
+                periodo:li.children[1]? li.children[1].children[1].innerText:'',
             };
         }):'';
         
