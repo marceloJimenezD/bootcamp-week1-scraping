@@ -39,7 +39,9 @@ const scrapingProfile = ()=>{
         const elementExperience = document.querySelectorAll("#experience-section ul.pv-profile-section__section-info > li section");
         const experience = elementExperience? Array.from(elementExperience).map((section)=>{
             return section.querySelectorAll('ul').length
-            ?{empresa:section.querySelectorAll('a div div h3')[0].children[1].innerText,cargos:[]} 
+            ?{empresa:section.querySelectorAll('a div div h3')[0].children[1].innerText,cargos:[Array.from(section.querySelectorAll('ul li')).map((li)=>{
+                return {cargo: li.querySelectorAll('h3')[0].children[1].innerText,periodo:li.querySelectorAll('div h4')[0].innerText};
+            })]} 
             : {empresa:section.querySelectorAll('div.pv-entity__summary-info p')[1].innerText,cargos:{cargo:section.querySelectorAll('div.pv-entity__summary-info h3')[0].innerText,periodo:section.querySelectorAll('div.pv-entity__summary-info h4')[0].children[1].innerText}};
         }):'';
 
