@@ -1,5 +1,4 @@
 let btnscrap = document.getElementById('scrap-profile')
-let data = [];
 
 btnscrap.addEventListener('click', async ()=>{
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -34,7 +33,7 @@ const scrapingProfile = ()=>{
             oldY = actualY;
         }
         
-
+        
 
         const elementExperience = document.querySelectorAll("#experience-section ul.pv-profile-section__section-info > li section");
         const experience = elementExperience? Array.from(elementExperience).map((section)=>{
@@ -42,12 +41,12 @@ const scrapingProfile = ()=>{
             ?{empresa:section.querySelectorAll('a div div h3')[0].children[1].innerText,cargos:[Array.from(section.querySelectorAll('ul li')).map((li)=>{
                 return {cargo: li.querySelectorAll('h3')[0].children[1].innerText,periodo:li.querySelectorAll('div h4')[0].innerText};
             })]} 
-            : {empresa:section.querySelectorAll('div.pv-entity__summary-info p')[1].innerText,cargos:{cargo:section.querySelectorAll('div.pv-entity__summary-info h3')[0].innerText,periodo:section.querySelectorAll('div.pv-entity__summary-info h4')[0].children[1].innerText}};
+            : {empresa:section.querySelectorAll('div.pv-entity__summary-info p')[1].innerText,cargos:[{cargo:section.querySelectorAll('div.pv-entity__summary-info h3')[0].innerText,periodo:section.querySelectorAll('div.pv-entity__summary-info h4')[0].children[1].innerText}]};
         }):'';
 
         
-        console.log(experience);
-                
+        
+        data.experiencia=experience;     
 
 
         const elementEducation = document.querySelectorAll("section.education-section  ul li.pv-profile-section__list-item div.pv-entity__summary-info");
@@ -60,7 +59,7 @@ const scrapingProfile = ()=>{
             };
         }):'';
         
-        console.log(education);
+        data.educacion= education;
 
     };
     
@@ -78,12 +77,19 @@ const scrapingProfile = ()=>{
     const elementResume = document.querySelector('section.pv-about-section > p')
     const resume = elementResume? elementResume.innerText: '...';
 
+    let data = {
+        nombre:name,
+        titulo:title,
+        acercade:resume,
+        ubicacion:ubicacion,
+        experiencia:undefined,
+        educacion:undefined
+    };
 
-    console.log(name);
-    console.log(title);
-    console.log(resume);
-    console.log(ubicacion);
+
+    
     atuoScroll();
+    console.log(data);
 }
 
 
